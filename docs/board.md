@@ -1,124 +1,73 @@
-# Class Scheduler — Task Board
+# Class Scheduler — Classroom Task Board
 
-## Current lesson
-
-Q2W2 Monday — Product Planning
-
-## Ready
-
-### TASK-001: Create the first React page
-
-Description:
-Create a simple React page that introduces
-the Class Scheduler project.
-
-Requirements:
-
-- Use React.
-- Display the heading:
-  Class Scheduler
-- Display the purpose sentence:
-  We are building a tool to plan classes and rooms.
-- Do not include additional application features.
-
-Acceptance check:
-
-- [ ] The exact heading is visible.
-- [ ] The exact purpose sentence is visible.
-- [ ] No additional features or controls appear.
-- [ ] The application runs locally.
-- [ ] The production build succeeds.
-- [ ] README.md remains unchanged.
-
-Planned implementation: Q2W2 Tuesday.
-
-## In Progress
-
-No implementation tasks.
-
-## Done
-
-No implementation tasks.
+**Current lesson:** Q2W2 Monday — Agree on the first task  
+**Build status:** No application feature has been verified or completed.  
+**Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
 
-All tasks below are future work.
-They are not approved for implementation today.
+All cards below are **future work**, not current implementation or verified functionality. Their owners will be assigned when the relevant lessons begin.
 
-### Data management
+| Task card | Planned lesson | Owner | Acceptance check (future) |
+| --- | --- | --- | --- |
+| Show two fictional rooms in a reusable component | Q2W3 | Teacher/class (later) | Two named rooms and capacities display correctly. |
+| Add a local room filter and creation form | Q2W4 | Teacher/class (later) | Filter and validated room addition work only in local browser state. |
+| Build room API and connect page | Q2W5 | Teacher/class (later) | Valid room requests work; invalid direct requests are rejected. |
+| Store rooms persistently in PostgreSQL | Q2W6 | Teacher/class (later) | New room data survives API restart. |
+| Manage teachers, courses, sections, and room edits | Q2W7 | Teacher/class (later) | Catalog relationships save correctly, without losing existing rooms. |
+| Create the manual draft timetable | Q2W8 | Teacher/class (later) | Meeting placements can be saved, moved, and removed for Monday–Friday P1–P3. |
+| Check conflicts and capacity on the server | Q2W9 | Teacher/class (later) | Room, teacher, section, and capacity conflicts are rejected. |
+| Protect simultaneous saves and test rules | Q3W1 | Teacher/class (later) | Concurrent competing bookings cannot corrupt a valid schedule. |
+| Add Microsoft sign-in and API credential validation | Q3W2 | Teacher/class (later) | Valid school account works; invalid credentials are rejected. |
+| Enforce Admin and Teacher permissions | Q3W3 | Teacher/class (later) | Admin may manage drafts; Teacher cannot edit or read another teacher's data. |
+| Publish stable approved timetable | Q3W4 | Teacher/class (later) | Publishing creates an approved version unchanged by later draft edits. |
+| Display and print each teacher's approved timetable | Q3W5 | Teacher/class (later) | Each teacher can see and print only their approved meetings. |
+| Improve usability and shared checks | Q3W6 | Teacher/class (later) | Focused usability fixes and repeatable checks have evidence. |
+| Package application for hosting | Q3W7 | Teacher/class (later) | Existing app runs in a verified production container. |
+| Deploy and verify on Azure | Q3W8–Q3W9 | Adult owner/class (later) | Hosted HTTPS app passes sign-in, rules, publication, persistence, and recovery checks. |
+| Prepare and deploy permanent VPS | Q4W1–Q4W2 | Adult owner/class (later) | The app runs at the permanent HTTPS address with durable storage. |
+| Back up, restore, test, repair, and hand over | Q4W3–Q4W8 | Adult owner/class (later) | Recovery, required acceptance checks, and permanent operations are verified by Q4W8. |
 
-- [ ] Manage rooms and room capacities.
-- [ ] Manage teachers.
-- [ ] Manage courses.
-- [ ] Manage class sections.
+**Excluded, not backlog implementation:** student enrollment, student accounts/individual schedules, automatic timetable generation, and hidden future features.
 
-### Manual scheduling
+## Ready
 
-- [ ] Define fixed teaching periods.
-- [ ] Assign sections to teaching periods.
-- [ ] Assign teachers to sections and periods.
-- [ ] Assign rooms to scheduled sections.
-- [ ] View the resulting timetable.
+### TASK-001 — Create the first React page
 
-### Scheduling validation
+- **Planned lesson:** Q2W2 Tuesday.
+- **Owner:** Teacher/class (to assign at the lesson).
+- **User need:** A staff member opening the first page should understand the purpose of the app.
+- **Change:** A React page with the heading `Class Scheduler` and the sentence `We are building a tool to plan classes and rooms.`
+- **In scope:** Exactly the heading and sentence on one page.
+- **Out of scope:** Forms, room records, scheduling, API, database, Microsoft sign-in, additional pages, and hidden functionality.
+- **Acceptance check:** The exact two texts display; `npm run build` succeeds; the review finds no additional app features.
+- **Evidence:** Not run yet. Record the actual browser and build results during Tuesday's lesson.
 
-- [ ] Check room scheduling conflicts
-      on the server.
-- [ ] Check teacher scheduling conflicts
-      on the server.
-- [ ] Check room capacity constraints
-      on the server.
-- [ ] Reject invalid scheduling assignments.
+## Doing
 
-### Authentication and permissions
+No implementation task is currently in progress.
 
-- [ ] Implement Microsoft sign-in.
-- [ ] Implement Admin permissions.
-- [ ] Implement Teacher permissions.
-- [ ] Enforce permissions on the server.
+## Review
 
-### Publication
+No implementation task is awaiting review.
 
-- [ ] Support approval of a timetable.
-- [ ] Publish a stable approved timetable.
-- [ ] Keep the published timetable stable
-      until a new version is approved.
+## Done
 
-### Deployment and operations
+No application features have been completed or verified. Monday planning-document drafts are recorded in `docs/prompt-log.md`; they will count as reviewed documentation work only after the teacher checks and commits them.
 
-- [ ] Prepare an Azure teaching deployment.
-- [ ] Deploy and verify on Azure.
-- [ ] Prepare permanent VPS operation.
-- [ ] Deploy and verify on the VPS.
-- [ ] Document essential operating procedures.
+## Blocked
 
-## Explicit exclusions
+No confirmed blocker has been reported. Git remote access, starting commit, and repository status still need to be checked in the local repository; do not treat them as failures before checking.
 
-The project will not implement:
+## Q2W2 Monday acceptance check
 
-- Student enrollment
-- Individual student schedules
-- Automatic timetable generation
+- [ ] `docs/product-brief.md`, `docs/board.md`, and `docs/prompt-log.md` have been saved locally.
+- [ ] Ready contains exactly one build task (TASK-001).
+- [ ] The board does not claim an application feature exists.
+- [ ] Future feature cards remain in Backlog.
+- [ ] No app code has been added for Monday.
+- [ ] `README.md` records planning work without claiming a working app.
+- [ ] Teacher/student reviewers inspected the staged diff and recorded actual Git observations.
 
-## Board rules
-
-1. Only approved lesson tasks enter Ready.
-2. Work begins only after teacher review.
-3. Move a task to In Progress when work starts.
-4. Move a task to Done only after its
-   acceptance checks have been verified.
-5. Record actual test results before marking Done.
-6. Do not implement Backlog features early.
-7. Preserve existing working behavior and data.
-
-## Monday acceptance check
-
-- [ ] The product brief identifies required outcomes.
-- [ ] The board contains exactly one Ready task.
-- [ ] The Ready task is the introductory React page.
-- [ ] All future features are in Backlog.
-- [ ] No implementation task is In Progress.
-- [ ] No unverified implementation is marked Done.
-- [ ] Student enrollment is excluded.
-- [ ] README.md remains unchanged.
-- [ ] No application code was generated today.xt
+**Actual results:** Not supplied yet.  
+**Evidence/commit:** Pending local review and commit.
