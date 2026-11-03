@@ -12,7 +12,10 @@ the end of Q4W8.
 
 **Planning stage — application development has not started.**
 
-This repository currently contains only this README and its Git history.
+At the start of Q2W2 Monday, the repository was reported to contain
+only this README and its Git history. The three planning documents
+have now been drafted for classroom review; their save and Git commit
+are not yet verified.
 
 There is no working website, backend, database, sign-in system, or
 deployment yet. The features below describe our planned product;
@@ -105,14 +108,19 @@ We will not mark a task complete just because AI generated files.
 
 ### Monday
 
-Agree on the project scope and create:
+Agreed on the scope using the existing README and drafted:
 
-- A product brief.
-- A task board.
-- A prompt log.
+- `docs/product-brief.md` — project purpose, staff roles, fixed-period
+  timetable, exclusions, required outcome, and acceptance checks.
+- `docs/board.md` — one Ready React-page task with all later
+  features in Backlog.
+- `docs/prompt-log.md` — the original request, improved scope,
+  review questions, and expected-versus-actual evidence.
 
-The teacher will also add the source-snapshot helper supplied in the
-lesson guide. No application functionality is built on Monday.
+The drafts are ready to save and review in the classroom; the actual
+repository commit and push have not been confirmed. The source-snapshot
+helper mentioned in the lesson guide was not added by this
+documentation update. No application functionality was built on Monday.
 
 ### Tuesday
 
@@ -133,15 +141,21 @@ will be added in later lessons.
 
 ## Project Documents
 
-The following documents are planned for Q2W2 Monday.
-They do not exist yet:
+The following documents were drafted during Q2W2 Monday.
+Save and review them in the repository before marking the task Done:
 
 - `docs/product-brief.md` — product purpose, users, and scope.
 - `docs/board.md` — Backlog, Ready, Doing, Review, Done, and Blocked tasks.
 - `docs/prompt-log.md` — prompts and the improvements we make to them.
 
-Lesson notes and student contribution records will be added as work
-is completed.
+The Monday drafts are documentation proposals, not proof of a
+completed commit. Record real student contributions and the Git commit
+after they have been reviewed and saved.
+
+**Monday acceptance check:** Exactly one React-page task is in Ready;
+all later application features remain in Backlog; there is no claim
+that a working application exists; and only reviewed documentation
+changes are staged and committed.
 
 ## Running the Application
 
