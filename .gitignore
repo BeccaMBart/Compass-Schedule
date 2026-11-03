@@ -1,1 +1,11 @@
 /tmp/
+
+# Frontend dependencies
+/frontend/node_modules/
+
+# Generated frontend build
+/frontend/dist/
+
+# Local environment files
+.env
+.env.*
