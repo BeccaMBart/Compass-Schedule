@@ -1,4 +1,6 @@
+
 import React from 'react';
+import RoomCard from './RoomCard.jsx';
 
 // 1. Local room records
 const rooms = [
@@ -22,13 +24,11 @@ function App() {
       <h1>Class Scheduler</h1>
       <p>We are building a tool to plan classes and rooms.</p>
 
-      {/* Today's addition */}
+      {/* Room list */}
       <h2>Rooms</h2>
       <ul>
         {rooms.map((room) => (
-          <li key={room.id}>
-            {room.name} — Capacity: {room.capacity}
-          </li>
+          <RoomCard key={room.id} room={room} />
         ))}
       </ul>
     </div>
@@ -36,3 +36,4 @@ function App() {
 }
 
 export default App;
+
