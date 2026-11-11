@@ -1,7 +1,8 @@
+
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W2 Monday — Agree on the first task  
-**Build status:** No application feature has been verified or completed.  
+**Current lesson:** Q2W3 Tuesday — Extract RoomCard (Done)  
+**Build status:** Q2W3 Monday and Tuesday completed. Both rooms display correctly, and the production build passed, as reported by the teacher.  
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
@@ -10,7 +11,6 @@ All cards below are **future work**, not current implementation or verified func
 
 | Task card | Planned lesson | Owner | Acceptance check (future) |
 | --- | --- | --- | --- |
-| Show two fictional rooms in a reusable component | Q2W3 | Teacher/class (later) | Two named rooms and capacities display correctly. |
 | Add a local room filter and creation form | Q2W4 | Teacher/class (later) | Filter and validated room addition work only in local browser state. |
 | Build room API and connect page | Q2W5 | Teacher/class (later) | Valid room requests work; invalid direct requests are rejected. |
 | Store rooms persistently in PostgreSQL | Q2W6 | Teacher/class (later) | New room data survives API restart. |
@@ -32,6 +32,14 @@ All cards below are **future work**, not current implementation or verified func
 
 ## Ready
 
+No daily task is currently Ready.
+
+## Doing
+
+No implementation task is currently in progress.
+
+## Review
+
 ### TASK-001 — Create the first React page
 
 - **Planned lesson:** Q2W2 Tuesday.
@@ -41,33 +49,72 @@ All cards below are **future work**, not current implementation or verified func
 - **In scope:** Exactly the heading and sentence on one page.
 - **Out of scope:** Forms, room records, scheduling, API, database, Microsoft sign-in, additional pages, and hidden functionality.
 - **Acceptance check:** The exact two texts display; `npm run build` succeeds; the review finds no additional app features.
-- **Evidence:** Not run yet. Record the actual browser and build results during Tuesday's lesson.
-
-## Doing
-
-No implementation task is currently in progress.
-
-## Review
-
-No implementation task is awaiting review.
+- **Evidence:** Teacher previously reported browser and build success; final task-board/Git evidence review remains pending.
 
 ## Done
 
-No application features have been completed or verified. Monday planning-document drafts are recorded in `docs/prompt-log.md`; they will count as reviewed documentation work only after the teacher checks and commits them.
+### Q2W3 Monday, November 9, 2026 — Add Two Room Records
+
+**Task:** Create two fictional local room records and display them in a read-only list.
+
+**Status:** Done — teacher-confirmed.
+
+**Records:**
+
+| ID | Room | Capacity |
+| --- | --- | --- |
+| 1 | Room 101 | 24 |
+| 2 | Art Studio | 18 |
+
+**Affected application file:**
+
+- `frontend/src/App.jsx`
+
+**Acceptance evidence:**
+
+- Both original room records remain present.
+- Room 101 displays with capacity 24.
+- Art Studio displays with capacity 18.
+- The teacher subsequently confirmed both rooms displayed correctly.
+- The teacher reported a successful production build on Q2W3 Tuesday.
+- Monday's completion was confirmed by the teacher.
+
+**Git evidence:** Monday-specific commit and push results were not separately supplied.
+
+The records are local demonstration data. No forms, database, API, persistence, or scheduling functionality was introduced.
+
+### Q2W3 Tuesday, November 10, 2026 — Extract RoomCard
+
+**Task:** Extract the existing repeated room display into a reusable React component.
+
+**Status:** Done — teacher-verified.
+
+**Teacher-reported acceptance results:**
+
+- Both fictional rooms displayed correctly: Passed.
+- Original heading and purpose sentence preserved.
+- Room names and capacities unchanged.
+- Production build (`npm run build`): Passed.
+- Git commit: Completed.
+- Git push: Completed.
+
+**Affected application files:**
+
+- `frontend/src/App.jsx`
+- `frontend/src/RoomCard.jsx`
+
+**Implementation:**
+
+- `App.jsx` imports `RoomCard`.
+- Each room is passed through the `room` prop.
+- React list rendering continues to use `room.id` as its stable key.
+- `RoomCard.jsx` displays one room.
+- No additional dependencies, state, or future features were introduced.
+
+**Evidence:** Results reported by the teacher on November 10, 2026. ChatGPT did not independently run the application.
 
 ## Blocked
 
-No confirmed blocker has been reported. Git remote access, starting commit, and repository status still need to be checked in the local repository; do not treat them as failures before checking.
+No current application blocker has been reported.
 
-## Q2W2 Monday acceptance check
-
-- [ ] `docs/product-brief.md`, `docs/board.md`, and `docs/prompt-log.md` have been saved locally.
-- [ ] Ready contains exactly one build task (TASK-001).
-- [ ] The board does not claim an application feature exists.
-- [ ] Future feature cards remain in Backlog.
-- [ ] No app code has been added for Monday.
-- [ ] `README.md` records planning work without claiming a working app.
-- [ ] Teacher/student reviewers inspected the staged diff and recorded actual Git observations.
-
-**Actual results:** Not supplied yet.  
-**Evidence/commit:** Pending local review and commit.
+Historical Q2W2 planning and TASK-001 Git evidence remains pending where indicated.
