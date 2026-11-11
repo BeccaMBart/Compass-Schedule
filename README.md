@@ -11,8 +11,10 @@ the end of Q4W8.
 
 ## Current Project Status
 
-**Q2W3 Monday — Two local room records added to the React page.
-Acceptance checks pending.**
+**Q2W3 Monday and Tuesday completed.** The teacher confirmed the two
+local room records and the reusable `RoomCard` extraction. Both rooms
+displayed correctly, Tuesday's production build passed, and Tuesday's
+Git commit and push were completed, as reported by the teacher.
 
 The project includes a React frontend built with:
 
@@ -38,8 +40,10 @@ The room information is stored directly in the frontend source code.
 
 These are demonstration records. They are not saved in a database.
 
-The teacher has not yet supplied the final browser, refresh,
-production-build, or Git results for today's change.
+The teacher reported successful room display and production-build
+checks on Tuesday, confirming the Monday records still work. A
+Monday-specific refresh result and Git commit were not separately
+reported.
 
 The application is not yet a functional scheduling system.
 
@@ -221,6 +225,9 @@ No additional application features were confirmed by this checkpoint.
 
 **Task: Display two fictional rooms in a read-only list.**
 
+**Status: Done — confirmed by the teacher.** The later Tuesday browser
+and build results also verify that these two records remain displayed.
+
 #### Learning Objective
 
 Students will learn how JavaScript objects and arrays can hold
@@ -309,12 +316,12 @@ Monday's task.
 
 | Check | Expected Result | Actual Result |
 | --- | --- | --- |
-| Original heading | Class Scheduler | Pending |
-| Original purpose | Original sentence remains | Pending |
-| Room 101 | Appears once, capacity 24 | Pending |
-| Art Studio | Appears once, capacity 18 | Pending |
-| Browser refresh | Same two records appear | Pending |
-| Production build | Completes without errors | Pending |
+| Original heading | Class Scheduler | Preserved in Tuesday's reviewed source |
+| Original purpose | Original sentence remains | Preserved in Tuesday's reviewed source |
+| Room 101 | Appears once, capacity 24 | Passed, teacher-reported Tuesday |
+| Art Studio | Appears once, capacity 18 | Passed, teacher-reported Tuesday |
+| Browser refresh | Same two records appear | Not separately reported |
+| Production build | Completes without errors | Passed, teacher-reported Tuesday |
 
 A relevant failure would be a missing room, duplicate room,
 incorrect capacity, or blank browser page.
@@ -328,9 +335,9 @@ incorrect capacity, or blank browser page.
 - Browser persistence.
 - Scheduling functionality.
 - Authentication or authorization.
-- Reusable RoomCard component.
+- Reusable RoomCard component (introduced Tuesday, not Monday).
 
-The reusable `RoomCard` component is reserved for the next lesson.
+The reusable `RoomCard` component was introduced in Tuesday's lesson.
 
 #### Evidence
 
@@ -338,11 +345,10 @@ The teacher and students worked through the room array,
 React import, existing heading, purpose paragraph, and list
 rendering structure.
 
-Final browser observations, refresh results, build output, and
-Git commit evidence have not yet been provided.
-
-Today's implementation should not be marked Done until the
-acceptance checks are completed and recorded.
+The teacher confirmed Monday's work was completed. Tuesday's
+teacher-reported browser and build checks verified that both Monday
+room records still displayed correctly. A Monday-specific refresh
+result and Git commit were not separately provided.
 
 ## Project Documents
 
@@ -456,14 +462,38 @@ A task is complete when:
 4. Changes have been reviewed and saved in Git.
 5. The task board reflects the verified result.
 
+## Q2W3 Tuesday — Verified Completion
+
+**Task:** Extract the reusable RoomCard component.
+
+**Status:** Done — verified by the teacher.
+
+**Teacher-reported results (November 10, 2026):**
+
+- Both fictional rooms displayed correctly: Passed.
+- Production build (`npm run build`): Passed.
+- Git commit: Completed.
+- Git push: Completed.
+
+**Affected application files:**
+
+- `frontend/src/App.jsx`
+- `frontend/src/RoomCard.jsx`
+
+The original heading, purpose sentence, and two
+fictional room records were preserved.
+
+No new dependencies or future features were added.
+
+These results were reported by the teacher.
+ChatGPT did not independently run the application.
+
 ## Next Lesson
 
-**Q2W3 Tuesday — Extract RoomCard**
+The next lesson must be selected and confirmed
+from the classroom task board.
 
-The next planned lesson will introduce a reusable React component
-to display the existing room records.
+Do not begin future features ahead of their
+scheduled lessons.
 
-The current two-room list must work correctly before starting
-the next lesson.
 
-Do not implement future features ahead of their scheduled lessons.
