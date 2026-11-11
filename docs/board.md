@@ -1,8 +1,8 @@
 
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W3 Tuesday — Extract RoomCard (Done)  
-**Build status:** Q2W3 Monday and Tuesday completed. Both rooms display correctly, and the production build passed, as reported by the teacher.  
+**Current lesson:** Q2W3 Wednesday — Review reuse and evidence (completion recorded; teacher-attested)
+**Build status:** Q2W3 Wednesday: production build passed; manual checks teacher-attested.
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
@@ -112,6 +112,17 @@ The records are local demonstration data. No forms, database, API, persistence, 
 - No additional dependencies, state, or future features were introduced.
 
 **Evidence:** Results reported by the teacher on November 10, 2026. ChatGPT did not independently run the application.
+
+### Q2W3 Wednesday — Completion Record
+
+**Curriculum task:** Review reuse and evidence
+**Curriculum acceptance target:** RoomCard has no hard-coded individual room name; the two-record output remains correct.
+**Recorded on:** 2026-11-11
+**Manual checks:** Teacher-attested by running this command; browser behavior not observed by the script.
+**Production build:** Passed automatically (`npm run build`).
+**Application Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Daily lesson record only. Weekly feature cards remain in Backlog until separately reviewed.
 
 ## Blocked
 
