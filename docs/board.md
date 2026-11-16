@@ -1,8 +1,8 @@
 
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W4 Monday — Build the filter (in progress)
-**Build status:** Q2W4 Monday implementation proposed; browser checks and production build pending.
+**Current lesson:** Q2W4 Monday — Build the filter (completion recorded)
+**Build status:** Q2W4 Monday: production build passed; manual checks teacher-attested.
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
@@ -36,22 +36,7 @@ No daily task is currently Ready.
 
 ## Doing
 
-### Q2W4 Monday — Build the filter
-
-- **Planned lesson:** Q2W4 Monday.
-- **Owner:** Teacher/class.
-- **User need:** Staff can quickly find a room by its name.
-- **Change:** Add a labeled name filter using React state.
-- **In scope:** Case-insensitive filtering, a no-match message, and restoring all original rooms when the input is cleared.
-- **Out of scope:** Room creation, storage, API, database, and future scheduling functionality.
-- **Affected application file:** `frontend/src/App.jsx`.
-- **Preserved component:** `frontend/src/RoomCard.jsx`.
-- **Acceptance check:**
-  - `art` displays Art Studio.
-  - `xyz` displays No matching rooms.
-  - Clearing the input restores Room 101 and Art Studio.
-- **Evidence:** Pending teacher-run browser checks and production build.
-- **Status:** In progress. No successful checks have been claimed.
+No implementation task is currently in progress.
 
 ## Review
 
@@ -145,6 +130,34 @@ The records are local demonstration data. No forms, database, API, persistence, 
 **Git push:** Not verified by this script.
 
 **Scope:** Daily lesson record only. Weekly feature cards remain in Backlog until separately reviewed.
+
+### Q2W4 Monday — Build the filter
+
+- **Planned lesson:** Q2W4 Monday.
+- **Owner:** Teacher/class.
+- **User need:** Staff can quickly find a room by its name.
+- **Change:** Add a labeled name filter using React state.
+- **In scope:** Case-insensitive filtering, a no-match message, and restoring all original rooms when the input is cleared.
+- **Out of scope:** Room creation, storage, API, database, and future scheduling functionality.
+- **Affected application file:** `frontend/src/App.jsx`.
+- **Preserved component:** `frontend/src/RoomCard.jsx`.
+- **Acceptance check:**
+  - `art` displays Art Studio.
+  - `xyz` displays No matching rooms.
+  - Clearing the input restores Room 101 and Art Studio.
+- **Evidence:** Manual checks teacher-attested; production build passed. See completion record below.
+- **Status:** Completion recorded; teacher-attested.
+
+### Q2W4 Monday — Completion Record
+
+**Curriculum task:** Build the filter
+**Curriculum acceptance target:** art shows Art Studio; xyz shows no match; clearing restores both original records.
+**Recorded on:** 2026-11-16
+**Manual checks:** Teacher-attested by running this command; browser behavior not observed by the script.
+**Production build:** Passed automatically (`npm run build`).
+**Application Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Daily lesson record only. Future feature cards remain in Backlog.
 
 ## Blocked
 

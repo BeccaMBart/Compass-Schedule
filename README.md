@@ -11,7 +11,7 @@ the end of Q4W8.
 
 ## Current Project Status
 
-**Q2W3 Wednesday — Review reuse and evidence. Production build passed; curriculum manual checks teacher-attested.** The teacher confirmed the two
+**Q2W4 Monday — Build the filter. Production build passed; curriculum manual checks teacher-attested.** The teacher confirmed the two
 local room records and the reusable `RoomCard` extraction. Both rooms
 displayed correctly, Tuesday's production build passed, and Tuesday's
 Git commit and push were completed, as reported by the teacher.
@@ -498,6 +498,17 @@ ChatGPT did not independently run the application.
 **Application Git status:** No uncommitted frontend changes detected.
 **Git push:** Not verified by this script.
 **Scope:** Daily lesson record only. Weekly feature cards remain in Backlog until separately reviewed.
+
+### Q2W4 Monday — Completion Record
+
+**Curriculum task:** Build the filter
+**Curriculum acceptance target:** art shows Art Studio; xyz shows no match; clearing restores both original records.
+**Recorded on:** 2026-11-16
+**Manual checks:** Teacher-attested by running this command; browser behavior not observed by the script.
+**Production build:** Passed automatically (`npm run build`).
+**Application Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Daily lesson record only. Future feature cards remain in Backlog.
 
 ## Next Lesson
 
