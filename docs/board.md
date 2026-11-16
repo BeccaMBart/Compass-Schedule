@@ -1,8 +1,8 @@
 
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W3 Wednesday — Review reuse and evidence (completion recorded; teacher-attested)
-**Build status:** Q2W3 Wednesday: production build passed; manual checks teacher-attested.
+**Current lesson:** Q2W4 Monday — Build the filter (in progress)
+**Build status:** Q2W4 Monday implementation proposed; browser checks and production build pending.
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
@@ -11,7 +11,7 @@ All cards below are **future work**, not current implementation or verified func
 
 | Task card | Planned lesson | Owner | Acceptance check (future) |
 | --- | --- | --- | --- |
-| Add a local room filter and creation form | Q2W4 | Teacher/class (later) | Filter and validated room addition work only in local browser state. |
+| Build the local add-room form | Q2W4 Tuesday | Teacher/class (later) | A valid room appears once; invalid input adds nothing; a refresh resets locally added rooms. |
 | Build room API and connect page | Q2W5 | Teacher/class (later) | Valid room requests work; invalid direct requests are rejected. |
 | Store rooms persistently in PostgreSQL | Q2W6 | Teacher/class (later) | New room data survives API restart. |
 | Manage teachers, courses, sections, and room edits | Q2W7 | Teacher/class (later) | Catalog relationships save correctly, without losing existing rooms. |
@@ -36,7 +36,22 @@ No daily task is currently Ready.
 
 ## Doing
 
-No implementation task is currently in progress.
+### Q2W4 Monday — Build the filter
+
+- **Planned lesson:** Q2W4 Monday.
+- **Owner:** Teacher/class.
+- **User need:** Staff can quickly find a room by its name.
+- **Change:** Add a labeled name filter using React state.
+- **In scope:** Case-insensitive filtering, a no-match message, and restoring all original rooms when the input is cleared.
+- **Out of scope:** Room creation, storage, API, database, and future scheduling functionality.
+- **Affected application file:** `frontend/src/App.jsx`.
+- **Preserved component:** `frontend/src/RoomCard.jsx`.
+- **Acceptance check:**
+  - `art` displays Art Studio.
+  - `xyz` displays No matching rooms.
+  - Clearing the input restores Room 101 and Art Studio.
+- **Evidence:** Pending teacher-run browser checks and production build.
+- **Status:** In progress. No successful checks have been claimed.
 
 ## Review
 
@@ -116,12 +131,19 @@ The records are local demonstration data. No forms, database, API, persistence, 
 ### Q2W3 Wednesday — Completion Record
 
 **Curriculum task:** Review reuse and evidence
+
 **Curriculum acceptance target:** RoomCard has no hard-coded individual room name; the two-record output remains correct.
+
 **Recorded on:** 2026-11-11
+
 **Manual checks:** Teacher-attested by running this command; browser behavior not observed by the script.
+
 **Production build:** Passed automatically (`npm run build`).
+
 **Application Git status:** No uncommitted frontend changes detected.
+
 **Git push:** Not verified by this script.
+
 **Scope:** Daily lesson record only. Weekly feature cards remain in Backlog until separately reviewed.
 
 ## Blocked
