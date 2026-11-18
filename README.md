@@ -11,10 +11,8 @@ the end of Q4W8.
 
 ## Current Project Status
 
-**Q2W4 Monday — Build the filter. Production build passed; curriculum manual checks teacher-attested.** The teacher confirmed the two
-local room records and the reusable `RoomCard` extraction. Both rooms
-displayed correctly, Tuesday's production build passed, and Tuesday's
-Git commit and push were completed, as reported by the teacher.
+
+**Q2W4 Tuesday — Build the local add form. Frontend production build passed; curriculum manual checks teacher-attested.**
 
 The project includes a React frontend built with:
 
@@ -510,12 +508,24 @@ ChatGPT did not independently run the application.
 **Git push:** Not verified by this script.
 **Scope:** Daily lesson record only. Future feature cards remain in Backlog.
 
+### Q2W4 Tuesday — Completion Record
+
+**Curriculum task:** Build the local add form
+**Curriculum acceptance target:** A valid room appears once; invalid input adds nothing; a refresh resets locally added rooms.
+**Recorded on:** 2026-11-17
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Completed Backlog card:** Build the local add-room form
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
 ## Next Lesson
 
-The next lesson must be selected and confirmed
-from the classroom task board.
 
-Do not begin future features ahead of their
-scheduled lessons.
+**Next curriculum lesson:** Q2W4 Wednesday — Refine messages and review
 
+**Acceptance target:** The selected message is clearer and all previous local checks still pass.
+
+Follow the official curriculum and current source snapshot. Do not implement future lessons early.
 

@@ -1,17 +1,17 @@
 
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W4 Monday — Build the filter (completion recorded)
-**Build status:** Q2W4 Monday: production build passed; manual checks teacher-attested.
+**Current lesson:** Q2W4 Tuesday — Build the local add form (completion recorded)
+**Build status:** Q2W4 Tuesday: frontend production build passed; manual checks teacher-attested.
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
+
 
 All cards below are **future work**, not current implementation or verified functionality. Their owners will be assigned when the relevant lessons begin.
 
 | Task card | Planned lesson | Owner | Acceptance check (future) |
 | --- | --- | --- | --- |
-| Build the local add-room form | Q2W4 Tuesday | Teacher/class (later) | A valid room appears once; invalid input adds nothing; a refresh resets locally added rooms. |
 | Build room API and connect page | Q2W5 | Teacher/class (later) | Valid room requests work; invalid direct requests are rejected. |
 | Store rooms persistently in PostgreSQL | Q2W6 | Teacher/class (later) | New room data survives API restart. |
 | Manage teachers, courses, sections, and room edits | Q2W7 | Teacher/class (later) | Catalog relationships save correctly, without losing existing rooms. |
@@ -52,6 +52,7 @@ No implementation task is currently in progress.
 - **Evidence:** Teacher previously reported browser and build success; final task-board/Git evidence review remains pending.
 
 ## Done
+
 
 ### Q2W3 Monday, November 9, 2026 — Add Two Room Records
 
@@ -158,6 +159,18 @@ The records are local demonstration data. No forms, database, API, persistence, 
 **Application Git status:** No uncommitted frontend changes detected.
 **Git push:** Not verified by this script.
 **Scope:** Daily lesson record only. Future feature cards remain in Backlog.
+
+### Q2W4 Tuesday — Completion Record
+
+**Curriculum task:** Build the local add form
+**Curriculum acceptance target:** A valid room appears once; invalid input adds nothing; a refresh resets locally added rooms.
+**Recorded on:** 2026-11-17
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Completed Backlog card:** Build the local add-room form
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
 
 ## Blocked
 

@@ -97,3 +97,14 @@
 **Git push:** Not verified by this script.
 **Scope:** Daily lesson record only. Future feature cards remain in Backlog.
 
+### Q2W4 Tuesday — Completion Record
+
+**Curriculum task:** Build the local add form
+**Curriculum acceptance target:** A valid room appears once; invalid input adds nothing; a refresh resets locally added rooms.
+**Recorded on:** 2026-11-17
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Completed Backlog card:** Build the local add-room form
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
