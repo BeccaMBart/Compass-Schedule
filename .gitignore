@@ -9,3 +9,9 @@
 # Local environment files
 .env
 .env.*
+!.env.example
+
+# Backend local files
+/backend/.venv/
+__pycache__/
+.pytest_cache/
