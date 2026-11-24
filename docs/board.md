@@ -1,20 +1,16 @@
 
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W4 Wednesday — Refine messages and review (completion recorded)
-**Build status:** Q2W4 Wednesday: frontend production build passed; manual checks teacher-attested.
+**Current lesson:** Q2W6 Wednesday — Prove persistence (completion recorded)
+**Build status:** Q2W6 Wednesday: frontend production build passed; manual checks teacher-attested.
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
-
-
 
 All cards below are **future work**, not current implementation or verified functionality. Their owners will be assigned when the relevant lessons begin.
 
 | Task card | Planned lesson | Owner | Acceptance check (future) |
 | --- | --- | --- | --- |
-| Build room API and connect page | Q2W5 | Teacher/class (later) | Valid room requests work; invalid direct requests are rejected. |
-| Store rooms persistently in PostgreSQL | Q2W6 | Teacher/class (later) | New room data survives API restart. |
 | Manage teachers, courses, sections, and room edits | Q2W7 | Teacher/class (later) | Catalog relationships save correctly, without losing existing rooms. |
 | Create the manual draft timetable | Q2W8 | Teacher/class (later) | Meeting placements can be saved, moved, and removed for Monday–Friday P1–P3. |
 | Check conflicts and capacity on the server | Q2W9 | Teacher/class (later) | Room, teacher, section, and capacity conflicts are rejected. |
@@ -53,8 +49,6 @@ No implementation task is currently in progress.
 - **Evidence:** Teacher previously reported browser and build success; final task-board/Git evidence review remains pending.
 
 ## Done
-
-
 
 ### Q2W3 Monday, November 9, 2026 — Add Two Room Records
 
@@ -184,6 +178,102 @@ The records are local demonstration data. No forms, database, API, persistence, 
 **Frontend Git status:** No uncommitted frontend changes detected.
 **Git push:** Not verified by this script.
 **Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W5 Monday — Completion Record
+
+**Curriculum task:** Create the first backend
+**Curriculum acceptance target:** GET /rooms returns status 200 and the two expected records. No database files or routes were generated.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W5 Tuesday — Completion Record
+
+**Curriculum task:** Add server creation and connect React
+**Curriculum acceptance target:** A valid creation appears in GET /rooms; an invalid direct API request is rejected with no new record.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W5 Wednesday — Completion Record
+
+**Curriculum task:** Handle failure and retry
+**Curriculum acceptance target:** API-down produces a visible error; restart/retry recovers; no false Saved message appears.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W6 Monday — Completion Record
+
+**Curriculum task:** Create the database service
+**Curriculum acceptance target:** db is healthy and a psql connection works. .env is ignored; no application persistence is claimed yet.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W6 Tuesday — Completion Record
+
+**Curriculum task:** Replace memory with PostgreSQL
+**Curriculum acceptance target:** A newly created room has the same ID/name/capacity in the screen, GET response, and SQL row.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W6 Wednesday — Completion Record
+
+**Curriculum task:** Prove persistence
+**Curriculum acceptance target:** The new record and ID survive restart; seed count does not increase; unavailable storage is reported as failure.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W5–Q2W6 — Teacher-verified completion summary
+
+- **Authorization:** The teacher explicitly authorized all six Monday–Wednesday
+  lessons in order, overriding the single-lesson implementation limit while
+  leaving completion records pending manual review/attestation.
+- **Scope:** GET/POST rooms; connected frontend, loading/failure/retry feedback;
+  local PostgreSQL 16, Room storage, and persistence verification only.
+- **Observed:** Monday GET 200 with the two original rooms; Tuesday POST 201 and
+  invalid direct requests 422; Chrome filter/save/refresh and API failure/retry
+  checks passed; database healthy and psql worked before tables were created;
+  Science Lab has ID 3 and capacity 20 in browser/API/SQL; API and DB restarts
+  retained all three rows with one copy of each seed; DB-down GET/POST returned
+  503 with no new row or false success; browser reported no JavaScript errors.
+- **Evidence:** [Q2W5 Monday](lesson-notes/Q2W5-Mon.md),
+  [Tuesday](lesson-notes/Q2W5-Tue.md), [Wednesday](lesson-notes/Q2W5-Wed.md),
+  [Q2W6 Monday](lesson-notes/Q2W6-Mon.md), [Tuesday](lesson-notes/Q2W6-Tue.md),
+  [Wednesday](lesson-notes/Q2W6-Wed.md).
+- **Teacher verification:** On November 24, 2026, the teacher stated: “I verified
+  that it is complete.” Manual acceptance review for all six lessons is now
+  teacher-attested. No individual student-work or Thursday/Friday results are
+  inferred from this confirmation.
+- **Completion:** All six daily records were entered in curriculum order on
+  November 24, 2026, after the teacher attested the manual checks and approved
+  the application commit. Each script invocation passed its frontend build.
+- **Git:** Application commit `a19baab` on `readiness/q2w5-mon`; completion
+  documentation is saved by the separate approved local documentation commit.
+  No push, PR, or merge was performed for these changes.
+- **Next curriculum assignment:** Q2W7 Monday — Add teacher
+  and course records. All Q2W7 and later application features remain Backlog.
 
 ## Blocked
 

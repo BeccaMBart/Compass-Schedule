@@ -11,9 +11,17 @@ the end of Q4W8.
 
 ## Current Project Status
 
+**Q2W6 Wednesday — Prove persistence. Frontend production build passed; curriculum manual checks teacher-attested.**
 
-
-**Q2W4 Wednesday — Refine messages and review. Frontend production build passed; curriculum manual checks teacher-attested.**
+Q2W5 and Q2W6 Monday–Wednesday application work has been implemented in
+curriculum order under explicit teacher authorization. API, browser, SQL,
+failure/retry, and persistence observations are recorded in
+`docs/lesson-notes/Q2W5-Mon.md` through `docs/lesson-notes/Q2W6-Wed.md`.
+The teacher confirmed on November 24, 2026: “I verified that it is complete.”
+Manual acceptance review is teacher-attested for all six lessons. Application
+changes were committed as `a19baab`; all six completion records were then
+entered in curriculum order on November 24, 2026. Each completion invocation
+passed its frontend build. No push or merge was performed for this work.
 
 The project includes a React frontend built with:
 
@@ -35,9 +43,15 @@ using a local JavaScript array.
 | 1 | Room 101 | 24 |
 | 2 | Art Studio | 18 |
 
-The room information is stored directly in the frontend source code.
+These fictional demonstration records now come from PostgreSQL through
+GET `/rooms`. The frontend form uses POST `/rooms` through Vite’s `/api`
+proxy; it no longer holds a source fixture or a local-only save path.
 
-These are demonstration records. They are not saved in a database.
+The screen preserves the original heading, purpose, RoomCard, and name
+filter. It shows loading/failure feedback and a reload/retry action. Failed
+saves preserve inputs. Successful saves require a server 201 response.
+Saved rooms and their IDs survive API and database stop/start cycles.
+The local verification added Science Lab, capacity 20, with ID 3.
 
 The teacher reported successful room display and production-build
 checks on Tuesday, confirming the Monday records still work. A
@@ -102,8 +116,8 @@ These are the selected course technologies:
 | --- | --- | --- |
 | Frontend | React 19, JavaScript, Vite 7 | Introduced Q2W2 |
 | Frontend tooling | Node.js 22.12+ within Node 22 | Introduced Q2W2 |
-| Backend | Python 3.12 and FastAPI | Planned |
-| Database | PostgreSQL 16 | Planned |
+| Backend | Python 3.12 and FastAPI | Implemented Q2W5; teacher-verified |
+| Database | PostgreSQL 16 | Implemented Q2W6; teacher-verified |
 | Authentication | Microsoft sign-in | Planned |
 | File editing and Git | Visual Studio Code | In use |
 | Teaching deployment | Microsoft Azure | Planned |
@@ -412,16 +426,112 @@ A successful build generates a `dist` folder.
 The `dist` folder is generated output and should not be committed
 to Git.
 
+### Run the API and database
+
+Use Python 3.12, Node 22.12+ within Node 22, and a running Docker Desktop.
+On the teacher's prepared Mac, activate the installed tools in each terminal:
+
+```bash
+source ~/.nvm/nvm.sh
+nvm use 22
+source ~/.local/bin/env
+```
+
+The following commands run at the repository root. The virtual environment
+and ignored private `.env` were created during local validation. On a new
+checkout, create the environment and install the pinned backend dependencies:
+
+```bash
+python3.12 -m venv backend/.venv
+backend/.venv/bin/python -m pip install -r backend/requirements.txt
+```
+
+`.env.example` documents the variable names with password placeholders. Do
+not use those placeholders as credentials. For a new local checkout, the
+following command generates `.env` privately, refuses to overwrite an existing
+file, and prints no password. Never display, upload, or commit `.env`.
+
+```bash
+python3.12 - <<'PYENV'
+import os, secrets
+password = secrets.token_hex(24)
+lines = ["POSTGRES_USER=scheduler", "POSTGRES_DB=scheduler",
+         "POSTGRES_PASSWORD=" + password,
+         "DATABASE_URL=postgresql+psycopg://scheduler:" + password + "@127.0.0.1:5432/scheduler"]
+fd = os.open(".env", os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+with os.fdopen(fd, "w") as f:
+    f.write("\n".join(lines) + "\n")
+PYENV
+```
+
+Confirm `.env` is ignored and `.env.example` is not ignored. Start PostgreSQL:
+
+```bash
+git check-ignore .env
+docker compose config --quiet
+docker compose up -d --wait db
+docker compose ps
+```
+
+The service binds only to `127.0.0.1:5432` and stores its data in the named
+`scheduler_data` volume. `config --quiet` validates without printing resolved
+credentials. Avoid plain `docker compose config`, which would reveal them.
+
+Start the API in a separate terminal:
+
+```bash
+cd backend
+.venv/bin/python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Start the frontend in another terminal with `npm --prefix frontend run dev`.
+Restart any Vite process that predates creation of `frontend/vite.config.js`,
+so it loads the proxy configuration. Validation used a separate Vite process
+on `http://127.0.0.1:5174/` to preserve an existing teacher process on 5173.
+
+The Vite proxy is for local development. A production build passing does not
+claim that production API routing or hosting is implemented.
+
 ### Current Manual Checks
 
-1. Confirm the heading displays correctly.
-2. Confirm the original purpose sentence remains unchanged.
-3. Confirm Room 101 appears once with capacity 24.
-4. Confirm Art Studio appears once with capacity 18.
-5. Refresh and confirm the same two rooms remain.
-6. Run `npm run build` and inspect the actual result.
+1. Confirm the original heading and purpose sentence, Room 101 (24), and Art
+   Studio (18). Existing additional rooms must remain present.
+2. Filter with `art`, then `xyz`, then clear: expect Art Studio, no-match text,
+   and the full saved list.
+3. Open `http://127.0.0.1:8000/docs`; use GET `/rooms` > Try it out > Execute.
+   Expect 200. POST a fictional room: expect 201 and an actual generated ID.
+4. Try a blank name and capacities 0, -3, and 2.5. The form rejects them;
+   direct API requests must also reject invalid input with 422 and no new row.
+   Extra request fields, booleans, and numeric strings are rejected by the API.
+5. Add a uniquely named fictional room through the form. Compare its actual
+   ID/name/capacity in GET `/rooms` and SQL:
 
-Record observed results before marking the task complete.
+   ```bash
+   docker compose exec -T db psql -U scheduler -d scheduler -c 'SELECT id, name, capacity FROM room ORDER BY id;'
+   ```
+
+6. Stop the API with Control+C; load/retry and attempt a save. Expect useful
+   failure feedback, preserved inputs, and no false saved message. Restart
+   the API and use Retry loading rooms; the saved list must recover.
+7. Record the new room's ID. Restart the API twice and compare the list;
+   the saved room and ID must remain, and seed rooms must not multiply.
+8. Stop/start the database without deleting storage:
+
+   ```bash
+   docker compose stop db
+   docker compose start --wait db
+   docker compose ps
+   ```
+
+   While stopped, GET and POST must return 503, the screen must report the
+   failure, and failed saves must preserve input. After recovery, retry and
+   compare the original IDs and rows. Never delete volumes for this check.
+9. Run `npm --prefix frontend run build` under Node 22 and review the actual
+   result. Review `git diff` and `git diff --check` before committing.
+
+Evidence notes distinguish Codex browser observations from teacher review.
+Thursday/Friday guided student work and student contributions have not been
+attested by these application checks.
 
 ## Classroom Responsibilities
 
@@ -532,13 +642,77 @@ ChatGPT did not independently run the application.
 **Git push:** Not verified by this script.
 **Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
 
+### Q2W5 Monday — Completion Record
+
+**Curriculum task:** Create the first backend
+**Curriculum acceptance target:** GET /rooms returns status 200 and the two expected records. No database files or routes were generated.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W5 Tuesday — Completion Record
+
+**Curriculum task:** Add server creation and connect React
+**Curriculum acceptance target:** A valid creation appears in GET /rooms; an invalid direct API request is rejected with no new record.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W5 Wednesday — Completion Record
+
+**Curriculum task:** Handle failure and retry
+**Curriculum acceptance target:** API-down produces a visible error; restart/retry recovers; no false Saved message appears.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W6 Monday — Completion Record
+
+**Curriculum task:** Create the database service
+**Curriculum acceptance target:** db is healthy and a psql connection works. .env is ignored; no application persistence is claimed yet.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W6 Tuesday — Completion Record
+
+**Curriculum task:** Replace memory with PostgreSQL
+**Curriculum acceptance target:** A newly created room has the same ID/name/capacity in the screen, GET response, and SQL row.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W6 Wednesday — Completion Record
+
+**Curriculum task:** Prove persistence
+**Curriculum acceptance target:** The new record and ID survive restart; seed count does not increase; unavailable storage is reported as failure.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
 ## Next Lesson
 
+**Next curriculum lesson:** Q2W7 Monday — Add teacher and course records
 
-
-**Next curriculum lesson:** Q2W5 Monday — Create the first backend
-
-**Acceptance target:** GET /rooms returns status 200 and the two expected records. No database files or routes were generated.
+**Acceptance target:** Existing rooms remain; valid teachers/courses save; blank values are rejected.
 
 Follow the official curriculum and current source snapshot. Do not implement future lessons early.
 
