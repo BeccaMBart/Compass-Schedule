@@ -1,12 +1,5 @@
-from pydantic import BaseModel, ConfigDict, Field as ValidationField
 from sqlmodel import Field, SQLModel
-
-
-class RoomCreate(BaseModel):
-    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
-
-    name: str = ValidationField(strict=True, min_length=1)
-    capacity: int = ValidationField(strict=True, gt=0)
+from sqlalchemy import CheckConstraint
 
 
 class Room(SQLModel, table=True):
@@ -15,9 +8,23 @@ class Room(SQLModel, table=True):
     capacity: int
 
 
-class RoomRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
+class Teacher(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    display_name: str
 
-    id: int
-    name: str
-    capacity: int
+
+class Course(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    title: str
+
+
+class Section(SQLModel, table=True):
+    __table_args__ = (
+        CheckConstraint("seat_limit > 0", name="ck_section_seat_limit_positive"),
+    )
+
+    id: int | None = Field(default=None, primary_key=True)
+    label: str
+    course_id: int = Field(foreign_key="course.id", ondelete="RESTRICT", index=True)
+    teacher_id: int = Field(foreign_key="teacher.id", ondelete="RESTRICT", index=True)
+    seat_limit: int

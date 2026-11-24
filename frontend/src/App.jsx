@@ -1,12 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
 import RoomCard from './RoomCard.jsx';
+import Catalog from './Catalog.jsx';
 
 function App() {
   const [rooms, setRooms] = useState([]);
   const [loadError, setLoadError] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [editingRoomId, setEditingRoomId] = useState(null);
 
   async function loadRooms(signal) {
     setLoading(true);
@@ -82,12 +84,12 @@ function App() {
 
     setSaving(true);
     try {
-      const response = await fetch('/api/rooms', {
-        method: 'POST',
+      const response = await fetch(`/api/rooms${editingRoomId === null ? '' : `/${editingRoomId}`}`, {
+        method: editingRoomId === null ? 'POST' : 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: trimmedName, capacity }),
       });
-      if (response.status !== 201) {
+      if (response.status !== (editingRoomId === null ? 201 : 200)) {
         setFormMessage(response.status === 422
           ? 'The server rejected this room. Check the name and positive whole-number capacity.'
           : 'The server could not save this room. Check that the API and storage are available.');
@@ -96,6 +98,7 @@ function App() {
       const savedRoom = await response.json();
       setRoomName('');
       setRoomCapacity('');
+      setEditingRoomId(null);
       setSearchText('');
       setFormMessage(`Room "${savedRoom.name}" saved by the server.`);
       await loadRooms();
@@ -135,7 +138,12 @@ function App() {
       {!loading && !loadError && (filteredRooms.length > 0 ? (
         <ul>
           {filteredRooms.map((room) => (
-            <RoomCard key={room.id} room={room} />
+            <RoomCard key={room.id} room={room} disabled={saving} onEdit={(selected) => {
+              setEditingRoomId(selected.id);
+              setRoomName(selected.name);
+              setRoomCapacity(String(selected.capacity));
+              setFormMessage('');
+            }} />
           ))}
         </ul>
       ) : (
@@ -143,7 +151,7 @@ function App() {
       ))}
 
       {/* Send accepted input to the API */}
-      <h2>Add a Room</h2>
+      <h2>{editingRoomId === null ? 'Add a Room' : `Edit Room ${editingRoomId}`}</h2>
 
       <form onSubmit={handleAddRoom} noValidate>
         <div>
@@ -178,8 +186,14 @@ function App() {
         </div>
 
         <button type="submit" disabled={saving}>
-          {saving ? 'Saving room...' : 'Add Room'}
+          {saving ? 'Saving room...' : editingRoomId === null ? 'Add Room' : 'Save Room'}
         </button>
+        {editingRoomId !== null && <button type="button" disabled={saving} onClick={() => {
+          setEditingRoomId(null);
+          setRoomName('');
+          setRoomCapacity('');
+          setFormMessage('');
+        }}>Cancel room edit</button>}
       </form>
 
       {/* Validation or success message */}
@@ -191,6 +205,7 @@ function App() {
         Rooms are saved in PostgreSQL. Refreshing the page or restarting
         the API keeps saved rooms.
       </p>
+      <Catalog />
     </div>
   );
 }

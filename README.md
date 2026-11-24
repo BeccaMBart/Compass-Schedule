@@ -11,7 +11,21 @@ the end of Q4W8.
 
 ## Current Project Status
 
-**Q2W6 Wednesday — Prove persistence. Frontend production build passed; curriculum manual checks teacher-attested.**
+**Q2W7 Wednesday — Review edits and record relationships. Frontend production build passed; curriculum manual checks teacher-attested.**
+
+Q2W7 Monday–Wednesday is teacher-verified and formally recorded complete on
+November 24, 2026. Application commit `1d733c4` preceded all three completion
+commands; each command passed its frontend build. Publication and current Git
+status are tracked in [PR #20](https://github.com/BeccaMBart/Compass-Schedule/pull/20). The current
+catalog supports teachers, courses, sections, and room edits. Alembic now owns
+schema changes; the API does not create tables or reseed records at startup.
+See [Monday](docs/lesson-notes/Q2W7-Mon.md),
+[Tuesday](docs/lesson-notes/Q2W7-Tue.md), and
+[Wednesday](docs/lesson-notes/Q2W7-Wed.md) for commands and observed evidence.
+
+The [student handout](docs/student-work/Q2W7-guided-home-work.md) and
+[contribution template](docs/student-work/Q2W7-contribution-template.md) are
+prepared. Student contributions and Thursday/Friday completion are unreported.
 
 Q2W5 and Q2W6 Monday–Wednesday application work has been implemented in
 curriculum order under explicit teacher authorization. API, browser, SQL,
@@ -21,7 +35,8 @@ The teacher confirmed on November 24, 2026: “I verified that it is complete.�
 Manual acceptance review is teacher-attested for all six lessons. Application
 changes were committed as `a19baab`; all six completion records were then
 entered in curriculum order on November 24, 2026. Each completion invocation
-passed its frontend build. No push or merge was performed for this work.
+passed its frontend build. Those week 5–6 changes were subsequently merged
+through PR #19 into main at `edfae78`.
 
 The project includes a React frontend built with:
 
@@ -118,6 +133,7 @@ These are the selected course technologies:
 | Frontend tooling | Node.js 22.12+ within Node 22 | Introduced Q2W2 |
 | Backend | Python 3.12 and FastAPI | Implemented Q2W5; teacher-verified |
 | Database | PostgreSQL 16 | Implemented Q2W6; teacher-verified |
+| Schema changes | Alembic 1.20.1 | Introduced Q2W7; teacher-verified |
 | Authentication | Microsoft sign-in | Planned |
 | File editing and Git | Visual Studio Code | In use |
 | Teaching deployment | Microsoft Azure | Planned |
@@ -477,10 +493,18 @@ The service binds only to `127.0.0.1:5432` and stores its data in the named
 `scheduler_data` volume. `config --quiet` validates without printing resolved
 credentials. Avoid plain `docker compose config`, which would reveal them.
 
+The prepared local database is already at migration `q2w7_003`. For a fresh
+empty database, apply migrations before starting the API. For an existing
+pre-Alembic Room database, follow the schema-comparison and baseline-adoption
+procedure in the Q2W7 Monday note first; stamping alone does not create tables.
+No records are automatically seeded on a fresh empty database.
+
 Start the API in a separate terminal:
 
 ```bash
 cd backend
+.venv/bin/python -m alembic upgrade head
+.venv/bin/python -m alembic current
 .venv/bin/python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
@@ -528,6 +552,23 @@ claim that production API routing or hosting is implemented.
    compare the original IDs and rows. Never delete volumes for this check.
 9. Run `npm --prefix frontend run build` under Node 22 and review the actual
    result. Review `git diff` and `git diff --check` before committing.
+
+10. In Teachers and Courses, create fictional records, reject blank values,
+    and edit a display name/title. The record ID must remain unchanged.
+11. In Sections, select saved teacher/course records. Section A should use
+    Algebra/C1, Alex Example/T1, and limit 24; Section B uses Art/C2, Jordan
+    Example/T2, and limit 18 in the prepared demonstration data. Invalid IDs,
+    blank labels, and invalid limits must be rejected by the API as well.
+12. Rename Algebra to Algebra I; Section A must show the new title while
+    retaining course_id 1. Attempt to delete the referenced course and teacher:
+    expect 409 and a useful message, with all related records unchanged.
+    Restore the original name after the check.
+13. Edit Science Lab's capacity while retaining room ID 3. Invalid capacity
+    must reject without changing the saved room; restore capacity 20 afterward.
+14. Inspect migration status from backend with `.venv/bin/python -m alembic
+    current` and `.venv/bin/python -m alembic check`: expect q2w7_003 and no new
+    upgrade operations. Migrations were checked on scheduler_migration_test
+    before the working database; do not downgrade or reset data for a check.
 
 Evidence notes distinguish Codex browser observations from teacher review.
 Thursday/Friday guided student work and student contributions have not been
@@ -708,11 +749,44 @@ ChatGPT did not independently run the application.
 **Git push:** Not verified by this script.
 **Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
 
+### Q2W7 Monday — Completion Record
+
+**Curriculum task:** Add teacher and course records
+**Curriculum acceptance target:** Existing rooms remain; valid teachers/courses save; blank values are rejected.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W7 Tuesday — Completion Record
+
+**Curriculum task:** Add sections and catalog forms
+**Curriculum acceptance target:** Section A references Algebra and T1 with limit 24; invalid IDs and limits cannot be saved.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W7 Wednesday — Completion Record
+
+**Curriculum task:** Review edits and record relationships
+**Curriculum acceptance target:** Rename preserves relationships; referenced delete is rejected; no existing record disappears unexpectedly.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
 ## Next Lesson
 
-**Next curriculum lesson:** Q2W7 Monday — Add teacher and course records
+**Next curriculum lesson:** Q2W8 Monday — Add the Meeting record
 
-**Acceptance target:** Existing rooms remain; valid teachers/courses save; blank values are rejected.
+**Acceptance target:** The meeting record refers to valid IDs; invalid days, periods, or missing records are rejected.
 
 Follow the official curriculum and current source snapshot. Do not implement future lessons early.
 

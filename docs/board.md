@@ -1,8 +1,8 @@
 
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W6 Wednesday — Prove persistence (completion recorded)
-**Build status:** Q2W6 Wednesday: frontend production build passed; manual checks teacher-attested.
+**Current lesson:** Q2W7 Wednesday — Review edits and record relationships (completion recorded)
+**Build status:** Q2W7 Wednesday: frontend production build passed; manual checks teacher-attested.
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
@@ -11,7 +11,6 @@ All cards below are **future work**, not current implementation or verified func
 
 | Task card | Planned lesson | Owner | Acceptance check (future) |
 | --- | --- | --- | --- |
-| Manage teachers, courses, sections, and room edits | Q2W7 | Teacher/class (later) | Catalog relationships save correctly, without losing existing rooms. |
 | Create the manual draft timetable | Q2W8 | Teacher/class (later) | Meeting placements can be saved, moved, and removed for Monday–Friday P1–P3. |
 | Check conflicts and capacity on the server | Q2W9 | Teacher/class (later) | Room, teacher, section, and capacity conflicts are rejected. |
 | Protect simultaneous saves and test rules | Q3W1 | Teacher/class (later) | Concurrent competing bookings cannot corrupt a valid schedule. |
@@ -271,9 +270,79 @@ The records are local demonstration data. No forms, database, API, persistence, 
   the application commit. Each script invocation passed its frontend build.
 - **Git:** Application commit `a19baab` on `readiness/q2w5-mon`; completion
   documentation is saved by the separate approved local documentation commit.
-  No push, PR, or merge was performed for these changes.
-- **Next curriculum assignment:** Q2W7 Monday — Add teacher
-  and course records. All Q2W7 and later application features remain Backlog.
+  No push, PR, or merge had occurred when this local completion was recorded.
+  Subsequently verified: PR #19 merged these changes into main at `edfae78`.
+- **Next assignment at that checkpoint:** Q2W7 Monday — Add teacher and
+  course records. Q2W7 completion is recorded below; Q2W8 and later work
+  remains Backlog.
+
+### Q2W7 Monday — Completion Record
+
+**Curriculum task:** Add teacher and course records
+**Curriculum acceptance target:** Existing rooms remain; valid teachers/courses save; blank values are rejected.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W7 Tuesday — Completion Record
+
+**Curriculum task:** Add sections and catalog forms
+**Curriculum acceptance target:** Section A references Algebra and T1 with limit 24; invalid IDs and limits cannot be saved.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W7 Wednesday — Completion Record
+
+**Curriculum task:** Review edits and record relationships
+**Curriculum acceptance target:** Rename preserves relationships; referenced delete is rejected; no existing record disappears unexpectedly.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W7 — Teacher-verified catalog completion summary
+
+- **Authorization:** Teacher requested all week 7 tasks. Monday–Wednesday
+  application tasks were implemented in curriculum order; formal completion
+  and student work are not automatically attested.
+- **Monday — Add teacher and course records:** Private pre-migration backup;
+  empty-test baseline q2w7_001 compared exactly with the working Room schema
+  before stamping; q2w7_002 adds teachers/courses. All three existing rooms
+  and IDs preserved. Create/read/update and invalid-value checks passed.
+- **Tuesday — Add sections and catalog forms:** q2w7_003 applied first to the
+  separate test database, then to the backed-up working database. Section A
+  uses C1/T1/24; Section B uses C2/T2/18. Browser selectors send saved numeric
+  IDs. Invalid references/limits reject; room edits preserve IDs and validate.
+- **Wednesday — Review edits and record relationships:** Renames preserve IDs
+  and section links; referenced teacher/course deletes return 409 with useful
+  messages. Foreign keys independently reject referenced deletes on the test
+  database. Original names and room values restored; no existing record lost.
+- **Checks:** Chrome create/edit/refresh/filter/failure/retry, API validation,
+  SQL comparisons, migration schema checks, frontend build, Python compilation,
+  dependency consistency, and diff checks passed. No browser page errors.
+- **Evidence:** [Monday](lesson-notes/Q2W7-Mon.md),
+  [Tuesday](lesson-notes/Q2W7-Tue.md), [Wednesday](lesson-notes/Q2W7-Wed.md).
+- **Student preparation:** [Guided home-work handout](student-work/Q2W7-guided-home-work.md)
+  and [contribution template](student-work/Q2W7-contribution-template.md).
+  No student contribution or Thursday/Friday completion is recorded.
+- **Teacher attestation:** Teacher confirmed “Yes—checks/review complete;
+  record all three lessons and merge” on November 24, 2026.
+- **Completion:** Application changes committed as `1d733c4`; the three daily
+  completion commands then succeeded in order, each with a passing build.
+- **Publication:** [PR #20](https://github.com/BeccaMBart/Compass-Schedule/pull/20)
+  tracks the implementation/documentation and current remote merge/check status.
+- **Branch/base:** lesson/q2w7-mon from merged main edfae78. The existing
+  instruction-file ignore change is preserved separately in .gitignore.
+- **Next curriculum assignment:** Q2W8 Monday — Add the Meeting record.
 
 ## Blocked
 
