@@ -108,3 +108,14 @@
 **Git push:** Not verified by this script.
 **Completed Backlog card:** Build the local add-room form
 **Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W4 Wednesday — Completion Record
+
+**Curriculum task:** Refine messages and review
+**Curriculum acceptance target:** The selected message is clearer and all previous local checks still pass.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.

@@ -1,11 +1,12 @@
 
 # Class Scheduler — Classroom Task Board
 
-**Current lesson:** Q2W4 Tuesday — Build the local add form (completion recorded)
-**Build status:** Q2W4 Tuesday: frontend production build passed; manual checks teacher-attested.
+**Current lesson:** Q2W4 Wednesday — Refine messages and review (completion recorded)
+**Build status:** Q2W4 Wednesday: frontend production build passed; manual checks teacher-attested.
 **Rule:** Future features remain in Backlog. A task moves to Done only after reviewed evidence exists.
 
 ## Backlog
+
 
 
 All cards below are **future work**, not current implementation or verified functionality. Their owners will be assigned when the relevant lessons begin.
@@ -52,6 +53,7 @@ No implementation task is currently in progress.
 - **Evidence:** Teacher previously reported browser and build success; final task-board/Git evidence review remains pending.
 
 ## Done
+
 
 
 ### Q2W3 Monday, November 9, 2026 — Add Two Room Records
@@ -170,6 +172,17 @@ The records are local demonstration data. No forms, database, API, persistence, 
 **Frontend Git status:** No uncommitted frontend changes detected.
 **Git push:** Not verified by this script.
 **Completed Backlog card:** Build the local add-room form
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W4 Wednesday — Completion Record
+
+**Curriculum task:** Refine messages and review
+**Curriculum acceptance target:** The selected message is clearer and all previous local checks still pass.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
 **Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
 
 ## Blocked
