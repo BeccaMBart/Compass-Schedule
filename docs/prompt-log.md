@@ -295,3 +295,153 @@ persistence. The next curriculum assignment is Q2W7 Monday — Add teacher and
 course records. Q2W7 and later application work remains Backlog. Completion
 documentation is saved by the separate approved local documentation commit.
 No push, PR, merge, or Thursday/Friday completion was performed.
+
+
+## November 24, 2026 — Q2W7 catalog implementation and validation
+
+**Teacher request:** “can you do all week 7 tasks please?”
+
+**Scope:** Implement all three Monday–Wednesday application tasks in order.
+Prepare the student-only Thursday/Friday handout and contribution template;
+do not invent student work or attest completion. Week 8 features remain Backlog.
+
+**Starting state:** Week 5–6 work was merged through PR #19 into main at
+edfae78. Created lesson/q2w7-mon from that merged checkpoint after verifying
+identical source trees, carrying the pre-existing .gitignore instruction-file
+rule unchanged. No new application commits or remote actions were authorized.
+
+**Monday:** Private backup; empty scheduler_migration_test; q2w7_001 baseline
+compared with the working Room schema before stamping. Tested q2w7_002 and row
+preservation on the separate database before migrating the working database.
+Added Teacher/Course create/read/update and validation, removed create_all and
+startup reseeding. All three original Room records and IDs remain unchanged.
+
+**Tuesday:** Another private backup and test-first q2w7_003 migration added
+Section foreign keys and a positive limit check. Catalog forms send actual
+saved IDs; Section A is C1/T1/24, Section B C2/T2/18. Invalid references/limits
+reject on create and update; edits preserve IDs. Room editing now validates
+capacity and retains ID; reversible check values were restored.
+
+**Wednesday:** Observed DELETE 405 before implementation; added bounded
+teacher/course deletes. Referenced deletes now return 409 with useful feedback;
+unreferenced confirmed deletes return 204. Chrome verified rename/link stability,
+cancelled deletion, and removal only of disposable T3/C3 validation records.
+Original names were restored. Separate-database SQL checks confirmed FK
+protection independently of the API; no cascade or existing record loss.
+
+**Validation:** Browser/API/SQL checks passed, including API outage/save failure,
+preserved inputs, no false saved message, restart/retry, and persisted catalog
+IDs. Browser reported no JavaScript page errors. Node 22 frontend builds,
+Python compileall/pip check, PostgreSQL health, both databases' Alembic schema
+checks, and git diff --check passed. No project test framework was introduced.
+
+**Paths:** backend/main.py, models.py, schemas.py, database.py, requirements.txt,
+alembic.ini and alembic/ (env, template, three reviewed revisions);
+frontend/src/App.jsx, RoomCard.jsx, Catalog.jsx, catalogApi.js; README.md,
+docs/board.md, docs/prompt-log.md, docs/lesson-notes/Q2W7-Mon.md,
+Q2W7-Tue.md, Q2W7-Wed.md; docs/student-work/Q2W7-guided-home-work.md and
+Q2W7-contribution-template.md. Private environment settings, backups, runtime
+files, and temporary browser/check scripts are excluded from Git.
+
+**Evidence:** [Monday](lesson-notes/Q2W7-Mon.md),
+[Tuesday](lesson-notes/Q2W7-Tue.md), [Wednesday](lesson-notes/Q2W7-Wed.md).
+Teacher prompt improvements and student contributions have not been supplied.
+The guided student handout preserves the original time limit, due/grace policy,
+paper option, and student-only content; no teacher answer key is included.
+
+**Remaining:** Teacher manual acceptance/review; approval of application Git
+actions; then the three daily completion records in order. The board retains
+Q2W6 Wednesday as its last formal completion and puts the Q2W7 work in Review.
+No Q2W7 completion script, commit, push, PR, or merge has been run. The next
+implementation after completion is Q2W8 Monday — Add the Meeting record.
+
+### Q2W7 Monday — Completion Record
+
+**Curriculum task:** Add teacher and course records
+**Curriculum acceptance target:** Existing rooms remain; valid teachers/courses save; blank values are rejected.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W7 Tuesday — Completion Record
+
+**Curriculum task:** Add sections and catalog forms
+**Curriculum acceptance target:** Section A references Algebra and T1 with limit 24; invalid IDs and limits cannot be saved.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+### Q2W7 Wednesday — Completion Record
+
+**Curriculum task:** Review edits and record relationships
+**Curriculum acceptance target:** Rename preserves relationships; referenced delete is rejected; no existing record disappears unexpectedly.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
+
+## November 24, 2026 — Q2W7 documentation reconciliation and approved publication
+
+**Teacher request:** “can you please ensure the board and all docs are up to
+date and pr and merge?”
+
+**Explicit attestation:** Teacher selected “Yes—checks/review complete; record
+all three lessons and merge”. This confirms Q2W7 Monday–Wednesday manual
+acceptance/review and authorizes completion recording and the described Git
+publication workflow. No student contributions or Thursday/Friday completion
+are inferred.
+
+**Reconciliation:** README, board, three Q2W7 notes, and the product brief now
+reflect teacher-verified completion. The historical planning checklist remains
+historical. Six older Q2W5/Q2W6 notes now append the observed PR #19 merge at
+edfae78. Original curriculum documents, daily targets, and completed lesson
+records are preserved. Student-only handout and contribution template are
+included; teacher answer-key text is excluded from the student assignment.
+
+**Application commit:** 1d733c4 — Implement Q2W7 catalog records and migrations.
+Exactly 15 reviewed application/migration files were staged. Private settings,
+dumps, environments, dependency/build output, runtime files, and the teacher's
+pre-existing .gitignore rule were excluded.
+
+**Completion commands:** Under Node 22.23.5 and TZ=America/New_York, after the
+application commit, ran sequentially:
+
+```bash
+node scripts/complete-lesson.mjs Q2W7 Monday
+node scripts/complete-lesson.mjs Q2W7 Tuesday
+node scripts/complete-lesson.mjs Q2W7 Wednesday
+```
+
+All three exited successfully, detected no uncommitted frontend changes, passed
+their frontend production builds (26 modules), and wrote the matching daily
+records to README, board, and prompt log. The script records teacher attestation;
+it does not independently verify browser behavior or remote publication. No
+completion-script change or progression bypass was required.
+
+**Fresh validation:** Frontend production build, Python compilation, dependency
+consistency, git diff --check, migration current/check, and live GET comparisons
+passed. The API/database still match the previously validated four catalog
+lists, including all original Room IDs. Alembic reports q2w7_003 and no new
+upgrade operations. Existing detailed browser/SQL evidence remains in the
+three daily notes; no extra catalog test rows were created during publication.
+
+**Git publication:** Branch lesson/q2w7-mon, base main at edfae78. Application
+commit was pushed and PR [#20](https://github.com/BeccaMBart/Compass-Schedule/pull/20)
+opened as a draft while these final documents were prepared. This PR is the
+reference for current remote check/merge status; the final documentation commit
+is included before marking it ready and merging. Required GitHub checks/review
+and conflicts are checked before a normal merge; no bypass, force push,
+self-approval, or branch deletion is included.
+
+**Current/next:** Q2W7 Wednesday — Review edits and record relationships is the
+latest recorded completion. Q2W8 Monday — Add the Meeting record is next.
+All week 8 and later application work remains Backlog.

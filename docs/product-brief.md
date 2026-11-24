@@ -37,11 +37,12 @@ These permissions must eventually be enforced by the server, not just by what ap
 - Automatic schedule generation.
 - Building future functionality early or hiding it behind switches or feature flags.
 
-## Planned technology (not installed or implemented yet)
+## Selected technology
 
 - Frontend: React 19, plain JavaScript, Vite 7, Node.js 22.12+ within Node 22.
 - Backend: Python 3.12 and FastAPI.
 - Database: PostgreSQL 16.
+- Schema migrations: Alembic 1.20.1, introduced in Q2W7.
 - Sign-in: school-approved Microsoft identity.
 - Development workflow: VS Code and Git.
 - Deployment: Azure teaching deployment, followed by permanent VPS operation.
@@ -77,7 +78,7 @@ Do not add forms, controls, a room list, API, database, authentication, hidden p
 - [ ] `npm run build` succeeds.
 - [ ] No unrelated files or features were added.
 
-## Monday documentation acceptance check
+## Q2W2 Monday documentation acceptance check (historical)
 
 - [ ] All three planning documents are saved in `docs/`.
 - [ ] The board has exactly one Ready build task: the introductory React page.
@@ -86,4 +87,21 @@ Do not add forms, controls, a room list, API, database, authentication, hidden p
 - [ ] No application code was added.
 - [ ] `git status` and the staged diff have been reviewed.
 
-**Verification status:** Documentation drafted for review. Repository save, checks, commits, and push have not been observed or confirmed in this chat.
+**Original Q2W2 verification status:** Documentation drafted for review. Repository save, checks, commits, and push have not been observed or confirmed in this chat.
+
+## Current implementation status — November 24, 2026
+
+Q2W5–Q2W6 were teacher-verified, formally recorded, and merged into main
+through PR #19 at edfae78. Q2W7's local catalog work now includes teachers,
+courses, sections, room editing, Alembic migrations, and protected referenced
+deletions. The recorded browser/API/SQL checks and frontend/Python/migration
+checks passed. The teacher then verified Q2W7 complete; the three formal
+records were entered after application commit 1d733c4. Publication is tracked
+in [PR #20](https://github.com/BeccaMBart/Compass-Schedule/pull/20). Current lesson completion and Git status are tracked in
+[the board](board.md), [README](../README.md), and the three
+[Q2W7 lesson notes](lesson-notes/Q2W7-Mon.md).
+
+The original planning checklist above remains historical; it is not retroactively
+attested by today's application validation. Q2W8 and later requirements remain
+future work. Student-only Q2W7 home-work materials are prepared; student
+completion is unreported.
