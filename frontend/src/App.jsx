@@ -55,7 +55,7 @@ function App() {
     // Accept only positive whole-number capacities
     if (!/^[0-9]+$/.test(trimmedCapacity)) {
       setFormMessage(
-        'Capacity must be a positive whole number.'
+        'Enter a positive whole-number capacity, such as 20. Zero, negative numbers, and decimals are not allowed.'
       );
       return;
     }
@@ -64,7 +64,7 @@ function App() {
 
     if (!Number.isSafeInteger(capacity) || capacity <= 0) {
       setFormMessage(
-        'Capacity must be a positive whole number.'
+        'Enter a positive whole-number capacity, such as 20. Zero, negative numbers, and decimals are not allowed.'
       );
       return;
     }

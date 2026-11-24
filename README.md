@@ -12,7 +12,8 @@ the end of Q4W8.
 ## Current Project Status
 
 
-**Q2W4 Tuesday — Build the local add form. Frontend production build passed; curriculum manual checks teacher-attested.**
+
+**Q2W4 Wednesday — Refine messages and review. Frontend production build passed; curriculum manual checks teacher-attested.**
 
 The project includes a React frontend built with:
 
@@ -520,12 +521,24 @@ ChatGPT did not independently run the application.
 **Completed Backlog card:** Build the local add-room form
 **Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
 
+### Q2W4 Wednesday — Completion Record
+
+**Curriculum task:** Refine messages and review
+**Curriculum acceptance target:** The selected message is clearer and all previous local checks still pass.
+**Recorded on:** 2026-11-24
+**Manual checks:** Teacher-attested by invoking this command; browser behavior was not independently verified by the script.
+**Automated check:** Frontend `npm run build` passed during this invocation.
+**Frontend Git status:** No uncommitted frontend changes detected.
+**Git push:** Not verified by this script.
+**Scope:** Only this daily lesson is recorded. Other curriculum checks remain teacher-attested, and unrelated weekly cards are unchanged.
+
 ## Next Lesson
 
 
-**Next curriculum lesson:** Q2W4 Wednesday — Refine messages and review
 
-**Acceptance target:** The selected message is clearer and all previous local checks still pass.
+**Next curriculum lesson:** Q2W5 Monday — Create the first backend
+
+**Acceptance target:** GET /rooms returns status 200 and the two expected records. No database files or routes were generated.
 
 Follow the official curriculum and current source snapshot. Do not implement future lessons early.
 
