@@ -1,30 +1,40 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RoomCard from './RoomCard.jsx';
 
-// 1. Original fictional room records
-const initialRooms = [
-  {
-    id: 1,
-    name: 'Room 101',
-    capacity: 24,
-  },
-  {
-    id: 2,
-    name: 'Art Studio',
-    capacity: 18,
-  },
-];
-
-// 2. Main page component
 function App() {
-  // Keep the room list in React state
-  const [rooms, setRooms] = useState(initialRooms);
+  const [rooms, setRooms] = useState([]);
+  const [loadError, setLoadError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  async function loadRooms(signal) {
+    setLoading(true);
+    setLoadError('');
+    try {
+      const response = await fetch('/api/rooms', { signal });
+      if (!response.ok) throw new Error('Load failed');
+      const data = await response.json();
+      if (!signal?.aborted) setRooms(data);
+    } catch {
+      if (!signal?.aborted) {
+        setLoadError('Could not load rooms. Check that the API is running, then retry.');
+      }
+    } finally {
+      if (!signal?.aborted) setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    const controller = new AbortController();
+    loadRooms(controller.signal);
+    return () => controller.abort();
+  }, []);
 
   // Existing room filter
   const [searchText, setSearchText] = useState('');
 
-  // New form inputs
+  // Controlled form inputs
   const [roomName, setRoomName] = useState('');
   const [roomCapacity, setRoomCapacity] = useState('');
 
@@ -39,9 +49,10 @@ function App() {
     room.name.toLowerCase().includes(normalizedSearchText)
   );
 
-  // Handle the local room form
-  function handleAddRoom(event) {
+  async function handleAddRoom(event) {
     event.preventDefault();
+    if (saving) return;
+    setFormMessage('');
 
     const trimmedName = roomName.trim();
     const trimmedCapacity = roomCapacity.trim();
@@ -69,28 +80,30 @@ function App() {
       return;
     }
 
-    // Add exactly one new room with a unique local ID
-    setRooms((currentRooms) => {
-      const nextId =
-        Math.max(0, ...currentRooms.map((room) => room.id)) + 1;
-
-      const newRoom = {
-        id: nextId,
-        name: trimmedName,
-        capacity: capacity,
-      };
-
-      return [...currentRooms, newRoom];
-    });
-
-    // Clear the form and filter after a successful addition
-    setRoomName('');
-    setRoomCapacity('');
-    setSearchText('');
-
-    setFormMessage(
-      `Room "${trimmedName}" added for this browser session.`
-    );
+    setSaving(true);
+    try {
+      const response = await fetch('/api/rooms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: trimmedName, capacity }),
+      });
+      if (response.status !== 201) {
+        setFormMessage(response.status === 422
+          ? 'The server rejected this room. Check the name and positive whole-number capacity.'
+          : 'The server could not save this room. Check that the API and storage are available.');
+        return;
+      }
+      const savedRoom = await response.json();
+      setRoomName('');
+      setRoomCapacity('');
+      setSearchText('');
+      setFormMessage(`Room "${savedRoom.name}" saved by the server.`);
+      await loadRooms();
+    } catch {
+      setFormMessage('Could not confirm the save. Check the room list before trying again.');
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -113,8 +126,13 @@ function App() {
         onChange={(event) => setSearchText(event.target.value)}
       />
 
+      {loading && <p role="status">Loading rooms...</p>}
+      {loadError && <p role="alert">{loadError}</p>}
+      <button type="button" disabled={loading || saving} onClick={() => loadRooms()}>
+        {loadError ? 'Retry loading rooms' : 'Reload rooms'}
+      </button>
       {/* Display matching rooms or a no-match message */}
-      {filteredRooms.length > 0 ? (
+      {!loading && !loadError && (filteredRooms.length > 0 ? (
         <ul>
           {filteredRooms.map((room) => (
             <RoomCard key={room.id} room={room} />
@@ -122,9 +140,9 @@ function App() {
         </ul>
       ) : (
         <p>No matching rooms</p>
-      )}
+      ))}
 
-      {/* New local add-room form */}
+      {/* Send accepted input to the API */}
       <h2>Add a Room</h2>
 
       <form onSubmit={handleAddRoom} noValidate>
@@ -137,6 +155,7 @@ function App() {
             id="room-name"
             type="text"
             value={roomName}
+            disabled={saving}
             onChange={(event) => setRoomName(event.target.value)}
           />
         </div>
@@ -151,13 +170,16 @@ function App() {
             type="text"
             inputMode="numeric"
             value={roomCapacity}
+            disabled={saving}
             onChange={(event) =>
               setRoomCapacity(event.target.value)
             }
           />
         </div>
 
-        <button type="submit">Add Room</button>
+        <button type="submit" disabled={saving}>
+          {saving ? 'Saving room...' : 'Add Room'}
+        </button>
       </form>
 
       {/* Validation or success message */}
@@ -166,8 +188,8 @@ function App() {
       )}
 
       <p>
-        Rooms added here are temporary. Refreshing the page
-        resets the list to the two original rooms.
+        Rooms are saved in PostgreSQL. Refreshing the page or restarting
+        the API keeps saved rooms.
       </p>
     </div>
   );
